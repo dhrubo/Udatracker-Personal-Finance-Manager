@@ -14,8 +14,7 @@ Make sure you have python version >= 3.10.x installed on your computer.
 
 1. Clone the repo:
 
-```
-bash
+```bash
 git clone https://github.com/udacity/cd14600-project-starter.git
 cd cd14600-project-starter/starter
 ```
@@ -46,6 +45,41 @@ python -m unittest balance/test_balance_observer.py
 - test_transaction.py → Confirms transactions update balances correctly.
 - test_transaction_adapter.py → Ensures external income data is correctly adapted into Transaction objects.
 - test_balance_observer.py → Validates that low-balance alerts are triggered at the correct threshold.
+- test_transaction_command.py → Checks that commands apply, undo and redo transactions, and that the manager's history behaves correctly.
+
+## Design Patterns Implemented
+
+| Pattern | Location |
+|---------|----------|
+| Singleton | `starter/balance/balance.py`: `Balance.get_instance()` |
+| Adapter | `starter/transaction/transaction_adapter.py`: `TransactionAdapter` |
+| Observer | `starter/balance/balance_observer.py`: `PrintObserver`, `LowBalanceAlertObserver` |
+| Command (chosen pattern) | `starter/command/`: `ApplyTransactionCommand`, `TransactionManager` (undo/redo) |
+
+See [REFLECTION.md](REFLECTION.md) for why each pattern was used, how it improved the design, and the trade-offs.
+
+### Sample output
+
+```
+Adding transactions...
+Adapted freelance invoice INV-98765 (Mobile App Project)
+[Balance Update] Transaction($100, category='TransactionCategory.INCOME') -> New balance: $100.00
+[Balance Update] Transaction($50, category='TransactionCategory.EXPENSE') -> New balance: $50.00
+[ALERT] Low balance: $50.00 is below the $100.00 threshold.
+[Balance Update] Transaction($200, category='TransactionCategory.INCOME') -> New balance: $250.00
+[Balance Update] Transaction($75, category='TransactionCategory.EXPENSE') -> New balance: $175.00
+[Balance Update] Transaction($1200, category='TransactionCategory.INCOME') -> New balance: $1,375.00
+Net balance: $1,375.00
+
+Undoing last transaction...
+[Balance Update] Transaction($1200, category='TransactionCategory.EXPENSE') -> New balance: $175.00
+Undid: Apply Transaction($1200, category='TransactionCategory.INCOME')
+Net balance: $175.00
+
+Redoing it...
+[Balance Update] Transaction($1200, category='TransactionCategory.INCOME') -> New balance: $1,375.00
+Net balance: $1,375.00
+```
 
 ## Project Instructions
 
