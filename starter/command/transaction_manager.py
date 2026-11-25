@@ -2,10 +2,11 @@
 
 
 class TransactionManager:
-    """Invoker for the Command pattern: runs commands and keeps undo/redo history.
+    """Invoker for the Command pattern.
 
-    Callers hand it commands instead of mutating the Balance directly, so
-    every change is recorded and can be rolled back or replayed.
+    Runs commands and keeps their undo/redo history. Callers hand it
+    commands instead of mutating the Balance directly, so every change
+    is recorded and can be rolled back or replayed.
     """
 
     def __init__(self):

@@ -46,7 +46,10 @@ class Balance:
     # Observer management
     # ------------------------------------------------------------------ #
     def register_observer(self, observer):
-        """Subscribe an observer to balance changes (ignored if already registered)."""
+        """Subscribe an observer to balance changes.
+
+        Registering the same observer twice has no effect.
+        """
         if observer not in self._observers:
             self._observers.append(observer)
 
@@ -60,7 +63,11 @@ class Balance:
         self._observers.clear()
 
     def notify_observers(self, transaction):
-        """Tell every observer the new balance and the transaction that caused it."""
+        """Notify every observer of the new balance.
+
+        Each observer receives the balance and the transaction that
+        caused it.
+        """
         for observer in list(self._observers):
             observer.update(self._balance, transaction)
 
@@ -76,11 +83,15 @@ class Balance:
 
     def add_income(self, amount):
         """Add income to the balance."""
-        self.apply_transaction(Transaction(amount, TransactionCategory.INCOME))
+        self.apply_transaction(
+            Transaction(amount, TransactionCategory.INCOME)
+        )
 
     def add_expense(self, amount):
         """Subtract expense from the balance."""
-        self.apply_transaction(Transaction(amount, TransactionCategory.EXPENSE))
+        self.apply_transaction(
+            Transaction(amount, TransactionCategory.EXPENSE)
+        )
 
     def apply_transaction(self, transaction):
         """

@@ -74,14 +74,18 @@ class TestBalance(unittest.TestCase):
     def test_get_instance_returns_same_object_across_threads(self):
         instances = []
         threads = [
-            threading.Thread(target=lambda: instances.append(Balance.get_instance()))
+            threading.Thread(
+                target=lambda: instances.append(Balance.get_instance())
+            )
             for _ in range(10)
         ]
         for thread in threads:
             thread.start()
         for thread in threads:
             thread.join()
-        self.assertTrue(all(instance is self.balance for instance in instances))
+        self.assertTrue(
+            all(instance is self.balance for instance in instances)
+        )
 
     def test_state_is_shared_between_references(self):
         Balance.get_instance().add_income(30)

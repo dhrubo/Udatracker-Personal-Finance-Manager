@@ -11,7 +11,8 @@ class IBalanceObserver:
 
         Args:
             balance (float): The net balance after the transaction was applied.
-            transaction (Transaction): The transaction that changed the balance.
+            transaction (Transaction): The transaction that changed
+                the balance.
         """
         raise NotImplementedError("Subclasses must implement update method.")
 
@@ -25,7 +26,8 @@ class PrintObserver(IBalanceObserver):
     def update(self, balance, transaction):
         """Print balance update message."""
         self.last_message = (
-            f"[Balance Update] {transaction} -> New balance: {format_currency(balance)}"
+            f"[Balance Update] {transaction} -> "
+            f"New balance: {format_currency(balance)}"
         )
         print(self.last_message)
 

@@ -2,6 +2,7 @@ import unittest
 from transaction.transaction import Transaction
 from transaction.transaction_category import TransactionCategory
 
+
 class TestTransaction(unittest.TestCase):
 
     def test_transaction_creation(self):
@@ -11,7 +12,10 @@ class TestTransaction(unittest.TestCase):
 
     def test_transaction_str(self):
         t = Transaction(50, TransactionCategory.INCOME)
-        self.assertEqual(str(t), "Transaction($50, category='TransactionCategory.INCOME')")
+        self.assertEqual(
+            str(t),
+            "Transaction($50, category='TransactionCategory.INCOME')",
+        )
 
     def test_transaction_equality(self):
         t1 = Transaction(20, TransactionCategory.EXPENSE)
@@ -38,7 +42,10 @@ class TestTransaction(unittest.TestCase):
 
     def test_float_amount(self):
         t = Transaction(12.5, TransactionCategory.EXPENSE)
-        self.assertEqual(str(t), "Transaction($12.5, category='TransactionCategory.EXPENSE')")
+        self.assertEqual(
+            str(t),
+            "Transaction($12.5, category='TransactionCategory.EXPENSE')",
+        )
 
     def test_zero_amount_allowed(self):
         self.assertEqual(Transaction(0, TransactionCategory.INCOME).amount, 0)
@@ -55,8 +62,10 @@ class TestTransaction(unittest.TestCase):
 
     def test_category_enum_members(self):
         self.assertEqual(
-            {member.name for member in TransactionCategory}, {"INCOME", "EXPENSE"}
+            {member.name for member in TransactionCategory},
+            {"INCOME", "EXPENSE"},
         )
+
 
 if __name__ == "__main__":
     unittest.main()

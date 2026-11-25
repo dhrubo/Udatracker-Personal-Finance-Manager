@@ -14,10 +14,13 @@ class Transaction:
 
     def __init__(self, amount, category: TransactionCategory):
         if isinstance(amount, bool) or not isinstance(amount, Real):
-            raise TypeError(f"Transaction amount must be a number, got {amount!r}")
+            raise TypeError(
+                f"Transaction amount must be a number, got {amount!r}"
+            )
         if amount < 0:
             raise ValueError(
-                "Transaction amount cannot be negative; use the EXPENSE category instead."
+                "Transaction amount cannot be negative; "
+                "use the EXPENSE category instead."
             )
         self.amount = amount
         self.category = category
@@ -26,7 +29,10 @@ class Transaction:
         return f"Transaction(${self.amount}, category='{self.category}')"
 
     def __repr__(self):
-        return f"Transaction(amount={self.amount!r}, category={self.category!r})"
+        return (
+            f"Transaction(amount={self.amount!r}, "
+            f"category={self.category!r})"
+        )
 
     def __eq__(self, other):
         if not isinstance(other, Transaction):

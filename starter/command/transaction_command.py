@@ -45,7 +45,9 @@ class ApplyTransactionCommand(ICommand):
             RuntimeError: If the command has not been executed yet.
         """
         if not self._executed:
-            raise RuntimeError("Cannot undo a command that has not been executed.")
+            raise RuntimeError(
+                "Cannot undo a command that has not been executed."
+            )
         reversal = Transaction(
             self.transaction.amount, self._OPPOSITE[self.transaction.category]
         )

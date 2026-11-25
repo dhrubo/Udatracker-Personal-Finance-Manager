@@ -28,19 +28,29 @@ class TestLowBalanceAlertObserver(unittest.TestCase):
         observer = LowBalanceAlertObserver(threshold=50)
         self.balance.register_observer(observer)
 
-        self.balance.apply_transaction(Transaction(100, TransactionCategory.INCOME))
+        self.balance.apply_transaction(
+            Transaction(100, TransactionCategory.INCOME)
+        )
         self.assertFalse(observer.alert_triggered)
 
-        self.balance.apply_transaction(Transaction(60, TransactionCategory.EXPENSE))
+        self.balance.apply_transaction(
+            Transaction(60, TransactionCategory.EXPENSE)
+        )
         self.assertTrue(observer.alert_triggered)
 
-        self.balance.apply_transaction(Transaction(100, TransactionCategory.INCOME))
+        self.balance.apply_transaction(
+            Transaction(100, TransactionCategory.INCOME)
+        )
         self.assertFalse(observer.alert_triggered)
 
-        self.balance.apply_transaction(Transaction(60, TransactionCategory.EXPENSE))
+        self.balance.apply_transaction(
+            Transaction(60, TransactionCategory.EXPENSE)
+        )
         self.assertFalse(observer.alert_triggered)
 
-        self.balance.apply_transaction(Transaction(60, TransactionCategory.EXPENSE))
+        self.balance.apply_transaction(
+            Transaction(60, TransactionCategory.EXPENSE)
+        )
         self.assertTrue(observer.alert_triggered)
 
     def test_alert_not_triggered_before_any_update(self):
@@ -97,9 +107,11 @@ class TestPrintObserver(unittest.TestCase):
         self.assertEqual(
             lines,
             [
-                "[Balance Update] Transaction($100, category='TransactionCategory.INCOME')"
+                "[Balance Update] "
+                "Transaction($100, category='TransactionCategory.INCOME')"
                 " -> New balance: $100.00",
-                "[Balance Update] Transaction($30, category='TransactionCategory.EXPENSE')"
+                "[Balance Update] "
+                "Transaction($30, category='TransactionCategory.EXPENSE')"
                 " -> New balance: $70.00",
             ],
         )

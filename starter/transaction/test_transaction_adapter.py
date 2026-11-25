@@ -5,10 +5,13 @@ from transaction.transaction_adapter import TransactionAdapter
 from transaction.transaction import Transaction
 from transaction.transaction_category import TransactionCategory
 
+
 class TestTransactionAdapter(unittest.TestCase):
 
     def test_adapter_converts_freelance_income(self):
-        ext_txn = ExternalFreelanceIncome(500, "INV-12345", "Website development")
+        ext_txn = ExternalFreelanceIncome(
+            500, "INV-12345", "Website development"
+        )
         adapter = TransactionAdapter(ext_txn)
         txn = adapter.to_transaction()
         self.assertEqual(txn, Transaction(500, TransactionCategory.INCOME))
@@ -44,7 +47,12 @@ class TestTransactionAdapter(unittest.TestCase):
         ext_txn = ExternalFreelanceIncome(500, "INV-4", "Website development")
         TransactionAdapter(ext_txn).to_transaction()
         self.assertEqual(
-            (ext_txn.amount, ext_txn.invoice_id, ext_txn.description, ext_txn.typ),
+            (
+                ext_txn.amount,
+                ext_txn.invoice_id,
+                ext_txn.description,
+                ext_txn.typ,
+            ),
             (500, "INV-4", "Website development", "income"),
         )
 
@@ -58,6 +66,7 @@ class TestTransactionAdapter(unittest.TestCase):
         balance.apply_transaction(txn)
         self.assertEqual(balance.get_balance(), 1200)
         balance.reset()
+
 
 if __name__ == "__main__":
     unittest.main()

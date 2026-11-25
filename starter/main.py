@@ -18,7 +18,9 @@ def main():
     # Create balance (Singleton) and add observers (Observer)
     balance = Balance.get_instance()
     balance.register_observer(PrintObserver())
-    balance.register_observer(LowBalanceAlertObserver(threshold=LOW_BALANCE_THRESHOLD))
+    balance.register_observer(
+        LowBalanceAlertObserver(threshold=LOW_BALANCE_THRESHOLD)
+    )
 
     # Create standard transactions
     transactions = [
@@ -29,10 +31,15 @@ def main():
     ]
 
     # Create an external income transaction (via Adapter pattern)
-    freelance_income = ExternalFreelanceIncome(1200, "INV-98765", "Mobile App Project")
+    freelance_income = ExternalFreelanceIncome(
+        1200, "INV-98765", "Mobile App Project"
+    )
     adapter = TransactionAdapter(freelance_income)
     adapted_transaction = adapter.to_transaction()
-    print(f"Adapted freelance invoice {adapter.invoice_id} ({adapter.description})")
+    print(
+        f"Adapted freelance invoice {adapter.invoice_id} "
+        f"({adapter.description})"
+    )
 
     all_transactions = transactions + [adapted_transaction]
 

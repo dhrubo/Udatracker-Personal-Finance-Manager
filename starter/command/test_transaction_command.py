@@ -86,7 +86,9 @@ class TestTransactionManager(unittest.TestCase):
         self.balance.clear_observers()
 
     def run_txn(self, transaction):
-        return self.manager.execute(ApplyTransactionCommand(self.balance, transaction))
+        return self.manager.execute(
+            ApplyTransactionCommand(self.balance, transaction)
+        )
 
     def test_execute_records_history(self):
         first = self.run_txn(income(100))

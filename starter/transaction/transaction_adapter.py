@@ -38,7 +38,8 @@ class TransactionAdapter:
             ValueError: If the external type string is not one we can map.
         """
         ext = self.external_transaction
-        # Freelance income is always income; fall back to that if typ is absent.
+        # Freelance income is always income, so fall back to that
+        # when the external object has no ``typ``.
         external_type = str(getattr(ext, "typ", "income")).strip().lower()
         try:
             category = self._TYPE_TO_CATEGORY[external_type]
