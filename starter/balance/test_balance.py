@@ -65,7 +65,7 @@ class TestBalance(unittest.TestCase):
         self.balance.reset()
         self.assertEqual(self.balance.get_balance(), 0.0)
 
-    # --- Singleton --------------------------------------------------------
+    # --- Singleton ----------------------------------------------------
 
     def test_direct_instantiation_is_blocked(self):
         with self.assertRaises(RuntimeError):
@@ -91,7 +91,7 @@ class TestBalance(unittest.TestCase):
         Balance.get_instance().add_income(30)
         self.assertEqual(Balance.get_instance().get_balance(), 30)
 
-    # --- Balance operations ----------------------------------------------
+    # --- Balance operations -------------------------------------------
 
     def test_multiple_transactions_accumulate(self):
         self.balance.add_income(100)
@@ -115,7 +115,7 @@ class TestBalance(unittest.TestCase):
         self.balance.add_expense(40)
         self.assertEqual(self.balance.summary(), "Net balance: -$40.00")
 
-    # --- Subject side of the Observer pattern ----------------------------
+    # --- Subject side of the Observer pattern -------------------------
 
     def test_apply_transaction_notifies_observers(self):
         observer = RecordingObserver()

@@ -16,9 +16,9 @@ class TransactionManager:
     def execute(self, command):
         """Run a command and record it.
 
-        A command that raises (for example, a transaction with an invalid
-        category) is not recorded. Executing a new command clears the redo
-        history, as in any editor.
+        A command that raises (for example, a transaction with an
+        invalid category) is not recorded. Executing a new command
+        clears the redo history, as in any editor.
         """
         command.execute()
         self._undo_stack.append(command)

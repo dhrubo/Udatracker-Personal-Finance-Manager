@@ -5,12 +5,13 @@ from transaction.transaction_category import TransactionCategory
 
 
 class TransactionAdapter:
-    """Adapter: lets external freelance income be used as a ``Transaction``.
+    """Adapter that turns external freelance income into a Transaction.
 
     The external platform describes money with its own shape
-    (``amount``, ``invoice_id``, ``description`` and a free-text ``typ``).
-    The rest of the app only understands ``Transaction`` objects, so this
-    adapter translates one into the other without changing either class.
+    (``amount``, ``invoice_id``, ``description`` and a free-text
+    ``typ``). The rest of the app only understands ``Transaction``
+    objects, so this adapter translates one into the other without
+    changing either class.
     """
 
     _TYPE_TO_CATEGORY = {
@@ -23,7 +24,7 @@ class TransactionAdapter:
 
     @property
     def invoice_id(self):
-        """Invoice ID from the external platform, kept for traceability."""
+        """Invoice ID from the external platform, for traceability."""
         return self.external_transaction.invoice_id
 
     @property
@@ -35,7 +36,7 @@ class TransactionAdapter:
         """Convert an external transaction to a standard Transaction.
 
         Raises:
-            ValueError: If the external type string is not one we can map.
+            ValueError: If the external type is not income or expense.
         """
         ext = self.external_transaction
         # Freelance income is always income, so fall back to that

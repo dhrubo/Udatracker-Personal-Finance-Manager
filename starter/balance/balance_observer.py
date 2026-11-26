@@ -4,13 +4,14 @@ from balance.currency import format_currency
 
 
 class IBalanceObserver:
-    """Observer interface: notified by ``Balance`` after every change."""
+    """Observer interface, notified by ``Balance`` on every change."""
 
     def update(self, balance, transaction):
         """Handle balance updates.
 
         Args:
-            balance (float): The net balance after the transaction was applied.
+            balance (float): The net balance after the transaction
+                was applied.
             transaction (Transaction): The transaction that changed
                 the balance.
         """
@@ -35,8 +36,8 @@ class PrintObserver(IBalanceObserver):
 class LowBalanceAlertObserver(IBalanceObserver):
     """Raises an alert while the balance is below ``threshold``.
 
-    ``alert_triggered`` reflects the latest update: True when the balance
-    is strictly below the threshold, False once it recovers.
+    ``alert_triggered`` reflects the latest update: True when the
+    balance is strictly below the threshold, False once it recovers.
     """
 
     def __init__(self, threshold):

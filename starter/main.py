@@ -43,7 +43,7 @@ def main():
 
     all_transactions = transactions + [adapted_transaction]
 
-    # Apply all transactions to balance, each as an undoable command (Command)
+    # Apply each transaction as an undoable command (Command)
     manager = TransactionManager()
     for transaction in all_transactions:
         manager.execute(ApplyTransactionCommand(balance, transaction))

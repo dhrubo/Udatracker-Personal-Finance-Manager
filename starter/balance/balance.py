@@ -10,8 +10,8 @@ from transaction.transaction_category import TransactionCategory
 class Balance:
     """Singleton to track the balance.
 
-    Balance is also the *subject* in the Observer pattern: every change to
-    the balance is broadcast to the registered observers.
+    Balance is also the *subject* in the Observer pattern: every
+    change to the balance is broadcast to the registered observers.
 
     Always obtain the instance through ``Balance.get_instance()``.
     """
@@ -33,8 +33,8 @@ class Balance:
     def get_instance(cls):
         """Return the single shared Balance, creating it on first use.
 
-        Double-checked locking keeps creation safe if two threads ask for
-        the instance at the same time.
+        Double-checked locking keeps creation safe if two threads ask
+        for the instance at the same time.
         """
         if cls._instance is None:
             with cls._lock:
@@ -42,9 +42,9 @@ class Balance:
                     cls()
         return cls._instance
 
-    # ------------------------------------------------------------------ #
+    # ---------------------------------------------------------------- #
     # Observer management
-    # ------------------------------------------------------------------ #
+    # ---------------------------------------------------------------- #
     def register_observer(self, observer):
         """Subscribe an observer to balance changes.
 
@@ -54,7 +54,7 @@ class Balance:
             self._observers.append(observer)
 
     def unregister_observer(self, observer):
-        """Unsubscribe an observer. Does nothing if it was not registered."""
+        """Unsubscribe an observer (no-op if it is not registered)."""
         if observer in self._observers:
             self._observers.remove(observer)
 
@@ -71,13 +71,14 @@ class Balance:
         for observer in list(self._observers):
             observer.update(self._balance, transaction)
 
-    # ------------------------------------------------------------------ #
+    # ---------------------------------------------------------------- #
     # Balance operations
-    # ------------------------------------------------------------------ #
+    # ---------------------------------------------------------------- #
     def reset(self):
         """Reset the net balance to zero.
 
-        Registered observers are kept; use ``clear_observers`` to drop them.
+        Registered observers are kept; use ``clear_observers`` to drop
+        them.
         """
         self._balance = 0.0
 
@@ -101,7 +102,8 @@ class Balance:
             transaction (Transaction): The transaction to apply.
 
         Raises:
-            ValueError: If the transaction's category is not INCOME or EXPENSE.
+            ValueError: If the transaction's category is not INCOME
+                or EXPENSE.
         """
         if transaction.category == TransactionCategory.INCOME:
             self._balance += transaction.amount

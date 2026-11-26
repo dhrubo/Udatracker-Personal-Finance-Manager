@@ -15,12 +15,12 @@ class ICommand:
 
 
 class ApplyTransactionCommand(ICommand):
-    """Command that applies one Transaction to a Balance, and can reverse it.
+    """Command that applies a Transaction to a Balance and can undo it.
 
-    Undo applies the opposite transaction (an INCOME is reversed by an
-    EXPENSE of the same amount, and vice versa). Because the reversal goes
-    through ``Balance.apply_transaction``, observers are notified of it like
-    any other change.
+    Undo applies the opposite transaction (an INCOME is reversed by
+    an EXPENSE of the same amount, and vice versa). Because the
+    reversal goes through ``Balance.apply_transaction``, observers are
+    notified of it like any other change.
     """
 
     _OPPOSITE = {

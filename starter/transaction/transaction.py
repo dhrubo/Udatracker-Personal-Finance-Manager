@@ -8,8 +8,8 @@ from transaction.transaction_category import TransactionCategory
 class Transaction:
     """Represents a financial transaction with an amount and category.
 
-    The amount is always a non-negative number; the direction of the money
-    (in or out) comes from the ``TransactionCategory`` enum.
+    The amount is always a non-negative number; the direction of the
+    money (in or out) comes from the ``TransactionCategory`` enum.
     """
 
     def __init__(self, amount, category: TransactionCategory):
